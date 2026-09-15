@@ -1,0 +1,10 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+
+const createApolloClient = () => {
+  return new ApolloClient({
+    uri: process.env.EXPO_PUBLIC_APOLLO_URI,
+    cache: new InMemoryCache(),
+  });
+};
+
+export default createApolloClient;

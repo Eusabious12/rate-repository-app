@@ -1,0 +1,56 @@
+import { render, screen, within } from '@testing-library/react-native';
+import { RepositoryListContainer } from '../src/components/RepositoryList';
+
+describe('RepositoryListContainer', () => {
+  it('renders repository information correctly', () => {
+    const repositories = {
+      totalCount: 2,
+      pageInfo: { hasNextPage: true, endCursor: 'end', startCursor: 'start' },
+      edges: [
+        {
+          node: {
+            id: 'jaredpalmer.formik',
+            fullName: 'jaredpalmer/formik',
+            description: 'Build forms in React, without the tears',
+            language: 'TypeScript',
+            forksCount: 1619,
+            stargazersCount: 21856,
+            ratingAverage: 88,
+            reviewCount: 3,
+            ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/4060187?v=4',
+          },
+          cursor: 'jaredpalmer.formik',
+        },
+        {
+          node: {
+            id: 'async-library.react-async',
+            fullName: 'async-library/react-async',
+            description: 'Flexible promise-based React data loader',
+            language: 'JavaScript',
+            forksCount: 69,
+            stargazersCount: 1760,
+            ratingAverage: 72,
+            reviewCount: 3,
+            ownerAvatarUrl: 'https://avatars1.githubusercontent.com/u/54310907?v=4',
+          },
+          cursor: 'async-library.react-async',
+        },
+      ],
+    };
+
+    render(<RepositoryListContainer repositories={repositories} />);
+
+    const items = screen.getAllByTestId('repositoryItem');
+    const [first, second] = items;
+
+    expect(within(first).getByText('jaredpalmer/formik')).toBeTruthy();
+    expect(within(first).getByText('Build forms in React, without the tears')).toBeTruthy();
+    expect(within(first).getByText('TypeScript')).toBeTruthy();
+    expect(within(first).getByText('21.9k')).toBeTruthy();
+    expect(within(first).getByText('1.6k')).toBeTruthy();
+
+    expect(within(second).getByText('async-library/react-async')).toBeTruthy();
+    expect(within(second).getByText('JavaScript')).toBeTruthy();
+    expect(within(second).getByText('1.8k')).toBeTruthy();
+  });
+});

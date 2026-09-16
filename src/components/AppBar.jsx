@@ -6,11 +6,7 @@ import { ME } from '../graphql/queries';
 import useSignOut from '../hooks/useSignOut';
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#24292e',
-    flexDirection: 'row',
-  },
+  container: { paddingTop: Constants.statusBarHeight, backgroundColor: '#24292e', flexDirection: 'row' },
   tab: { color: 'white', fontWeight: 'bold', fontSize: 16, padding: 15 },
 });
 
@@ -22,22 +18,18 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
-        <Link to="/">
-          <Text style={styles.tab}>Repositories</Text>
-        </Link>
+        <Link to="/"><Text style={styles.tab}>Repositories</Text></Link>
         {me ? (
           <>
-            <Link to="/create-review">
-              <Text style={styles.tab}>Create a review</Text>
-            </Link>
-            <Pressable onPress={signOut}>
-              <Text style={styles.tab}>Sign out</Text>
-            </Pressable>
+            <Link to="/create-review"><Text style={styles.tab}>Create a review</Text></Link>
+            <Link to="/myreviews"><Text style={styles.tab}>My reviews</Text></Link>
+            <Pressable onPress={signOut}><Text style={styles.tab}>Sign out</Text></Pressable>
           </>
         ) : (
-          <Link to="/signin">
-            <Text style={styles.tab}>Sign in</Text>
-          </Link>
+          <>
+            <Link to="/signin"><Text style={styles.tab}>Sign in</Text></Link>
+            <Link to="/signup"><Text style={styles.tab}>Sign up</Text></Link>
+          </>
         )}
       </ScrollView>
     </View>

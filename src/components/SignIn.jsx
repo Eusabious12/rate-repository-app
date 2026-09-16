@@ -36,7 +36,6 @@ export const SignInContainer = ({ onSubmit }) => {
         onBlur={formik.handleBlur('username')}
       />
       {usernameError && <Text style={styles.errorText}>{formik.errors.username}</Text>}
-
       <TextInput
         style={[styles.input, passwordError && styles.inputError]}
         placeholder="Password"
@@ -46,7 +45,6 @@ export const SignInContainer = ({ onSubmit }) => {
         onBlur={formik.handleBlur('password')}
       />
       {passwordError && <Text style={styles.errorText}>{formik.errors.password}</Text>}
-
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
         <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>

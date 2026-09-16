@@ -1,4 +1,5 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import * as Linking from 'expo-linking';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -8,20 +9,13 @@ const styles = StyleSheet.create({
   infoContainer: { flex: 1 },
   fullName: { fontWeight: 'bold', fontSize: 16, marginBottom: 5, fontFamily: theme.fonts.main },
   description: { color: '#586069', marginBottom: 5, fontFamily: theme.fonts.main },
-  statCount: { fontWeight: 'bold', fontFamily: theme.fonts.main },
-  language: {
-    color: 'white',
-    backgroundColor: '#0366d6',
-    alignSelf: 'flex-start',
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
+  language: { color: 'white', backgroundColor: '#0366d6', alignSelf: 'flex-start', paddingVertical: 4, paddingHorizontal: 8, borderRadius: 4, overflow: 'hidden' },
   statsContainer: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 15 },
   statItem: { alignItems: 'center' },
-  statCount: { fontWeight: 'bold' },
+  statCount: { fontWeight: 'bold', fontFamily: theme.fonts.main },
   statLabel: { color: '#586069' },
+  button: { backgroundColor: '#0366d6', borderRadius: 4, padding: 12, alignItems: 'center', marginTop: 15 },
+  buttonText: { color: 'white', fontWeight: 'bold' },
 });
 
 const formatCount = (count) =>
@@ -34,7 +28,7 @@ const StatItem = ({ label, count }) => (
   </View>
 );
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, showButton }) => {
   return (
     <View style={styles.container} testID="repositoryItem">
       <View style={styles.topContainer}>
@@ -51,6 +45,11 @@ const RepositoryItem = ({ item }) => {
         <StatItem label="Reviews" count={item.reviewCount} />
         <StatItem label="Rating" count={item.ratingAverage} />
       </View>
+      {showButton && (
+        <Pressable style={styles.button} onPress={() => Linking.openURL(item.url)}>
+          <Text style={styles.buttonText}>Open in GitHub</Text>
+        </Pressable>
+      )}
     </View>
   );
 };

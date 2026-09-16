@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react-native';
 import { RepositoryListContainer } from '../src/components/RepositoryList';
+import { NativeRouter } from 'react-router-native';
 
 describe('RepositoryListContainer', () => {
   it('renders repository information correctly', () => {
@@ -38,8 +39,11 @@ describe('RepositoryListContainer', () => {
       ],
     };
 
-    render(<RepositoryListContainer repositories={repositories} />);
-
+    render(
+      <NativeRouter>
+        <RepositoryListContainer repositories={repositories} />
+      </NativeRouter>
+    );
     const items = screen.getAllByTestId('repositoryItem');
     const [first, second] = items;
 

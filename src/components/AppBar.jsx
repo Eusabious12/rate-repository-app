@@ -26,9 +26,14 @@ const AppBar = () => {
           <Text style={styles.tab}>Repositories</Text>
         </Link>
         {me ? (
-          <Pressable onPress={signOut}>
-            <Text style={styles.tab}>Sign out</Text>
-          </Pressable>
+          <>
+            <Link to="/create-review">
+              <Text style={styles.tab}>Create a review</Text>
+            </Link>
+            <Pressable onPress={signOut}>
+              <Text style={styles.tab}>Sign out</Text>
+            </Pressable>
+          </>
         ) : (
           <Link to="/signin">
             <Text style={styles.tab}>Sign in</Text>

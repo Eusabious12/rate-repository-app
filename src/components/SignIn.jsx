@@ -1,25 +1,14 @@
 import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
   container: { padding: 15, backgroundColor: 'white' },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    padding: 10,
-    marginBottom: 5,
-  },
+  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 4, padding: 10, marginBottom: 5 },
   inputError: { borderColor: '#d73a4a' },
   errorText: { color: '#d73a4a', marginBottom: 10 },
-  button: {
-    backgroundColor: '#0366d6',
-    borderRadius: 4,
-    padding: 12,
-    alignItems: 'center',
-    marginTop: 5,
-  },
+  button: { backgroundColor: '#0366d6', borderRadius: 4, padding: 12, alignItems: 'center', marginTop: 5 },
   buttonText: { color: 'white', fontWeight: 'bold' },
 });
 
@@ -31,11 +20,19 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = () => {
+  const [signIn] = useSignIn();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const { username, password } = values;
+      try {
+        const data = await signIn({ username, password });
+        console.log(data.authenticate.accessToken);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
